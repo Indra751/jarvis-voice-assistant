@@ -1,0 +1,27 @@
+# --- Define functions for your commands ---
+def open_google():
+    speak("Opening Google.")
+    webbrowser.open("https://google.com")
+
+def play_music(command_text):
+    song = command_text.replace("play", "").strip()
+    link = musicLibrary.music.get(song)
+    if link:
+        speak(f"Playing {song}.")
+        webbrowser.open(link)
+    # ... etc
+
+# --- Create a command mapping ---
+commands = {
+    "open google": open_google,
+    "play": play_music,
+    # Add other commands here
+}
+
+# --- Rewrite processcommand ---
+def processcommand(c):
+    if "open google" in c: # Simple check first
+        commands["open google"]()
+    elif c.startswith("play"):
+        commands["play"](c) # Pass the full command to the function
+    # ... other logic for news etc.
